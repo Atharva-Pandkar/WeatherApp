@@ -4,13 +4,16 @@
 
     <item>
         <bitmap
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical|center_horizontal"
-            android:src="@drawable/icon4"/>
+            android:src="@drawable/weather_logo" />
     </item>
-    <item android:bottom="40dp">
+    <item android:bottom="50dp">
         <bitmap
-            android:gravity="bottom|center_horizontal"
-            android:src="@drawable/darksky"
+
+            android:gravity="bottom|center"
+            android:src="@drawable/powered_by_tomorrow_white"
             />
     </item>
 

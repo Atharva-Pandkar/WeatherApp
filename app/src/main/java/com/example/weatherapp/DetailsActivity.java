@@ -154,10 +154,10 @@ public class DetailsActivity extends AppCompatActivity {
 
                             Bundle bundle = new Bundle();
                      //       bundle.putStringArrayList("images",cityImagesURLs);
-
+                            bundle.putString("weather",mWeather.toString());
                             PhotoFragment photoFragment= new PhotoFragment();
                             photoFragment.setArguments(bundle);
-                            adapter.addFragment(photoFragment, "Photos");
+                            adapter.addFragment(photoFragment, "Weather Data");
 
                             viewPager.setAdapter(adapter);
 
@@ -166,7 +166,7 @@ public class DetailsActivity extends AppCompatActivity {
 
                             tabLayout.getTabAt(0).setIcon(R.drawable.calendar_today);
                             tabLayout.getTabAt(1).setIcon(R.drawable.trending_up);
-                            tabLayout.getTabAt(2).setIcon(R.drawable.google_photos);
+                            tabLayout.getTabAt(2).setIcon(R.drawable.thermometer);
 
                             ColorStateList colors;
                             if (Build.VERSION.SDK_INT >= 23) {
@@ -204,4 +204,5 @@ public class DetailsActivity extends AppCompatActivity {
         requestQueue.add(getRequest);
 
     }
+
 }

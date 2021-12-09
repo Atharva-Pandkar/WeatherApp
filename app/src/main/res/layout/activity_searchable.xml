@@ -73,8 +73,7 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -102,7 +101,8 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:background="@color/ggrey">
 
                         <ImageView
                             android:layout_width="20dp"
@@ -159,32 +159,33 @@
                     </RelativeLayout>
                 </android.support.v7.widget.CardView>
 
-                <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                <android.support.v7.widget.CardView
                     android:id="@+id/card2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    app:cardBackgroundColor="#161515"
                     android:layout_margin="10dp"
                     android:padding="2dp"
-                    card_view:cardCornerRadius="10dp">
+                    app:cardBackgroundColor="@color/ggrey"
+                    app:cardCornerRadius="10dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="5dp"
                         android:paddingLeft="2dp"
+                        android:paddingTop="10dp"
                         android:paddingRight="2dp"
+                        android:paddingBottom="5dp"
                         android:weightSum="4">
 
-                        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                        <android.support.v7.widget.CardView
                             android:id="@+id/week_card_view"
                             android:layout_width="92dp"
                             android:layout_height="100dp"
-                            app:cardBackgroundColor="#161515"
-                            android:layout_weight="1">
+                            android:layout_weight="1"
+                            android:background="@color/ggrey"
+                            app:cardBackgroundColor="@color/ggrey">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -192,19 +193,19 @@
                                 android:orientation="vertical">
 
                                 <ImageView
+                                    android:id="@+id/humidity_image"
                                     android:layout_width="match_parent"
                                     android:layout_height="50dp"
-                                    android:src="@drawable/water_percent"
-                                    android:id="@+id/humidity_image"/>
+                                    android:src="@drawable/water_percent" />
 
                                 <TextView
+                                    android:id="@+id/rain_value"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="0.00 mmph"
-                                    android:id="@+id/rain_value"
                                     android:textAlignment="center"
-                                    android:textStyle="bold"
-                                    android:textColor="@android:color/white"/>
+                                    android:textColor="@android:color/white"
+                                    android:textStyle="bold" />
 
                                 <TextView
                                     android:layout_width="match_parent"
@@ -215,12 +216,13 @@
 
                         </android.support.v7.widget.CardView>
 
-                        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                        <android.support.v7.widget.CardView
                             android:id="@+id/week_card_view"
                             android:layout_width="92dp"
                             android:layout_height="100dp"
-                            app:cardBackgroundColor="#161515"
-                            android:layout_weight="1">
+                            android:layout_weight="1"
+                            android:background="@color/ggrey"
+                            app:cardBackgroundColor="@color/ggrey">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -228,16 +230,16 @@
                                 android:orientation="vertical">
 
                                 <ImageView
+                                    android:id="@+id/wind_image"
                                     android:layout_width="match_parent"
                                     android:layout_height="50dp"
-                                    android:src="@drawable/weather_windy"
-                                    android:id="@+id/wind_image"/>
+                                    android:src="@drawable/weather_windy" />
 
                                 <TextView
+                                    android:id="@+id/wind_speed_value"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="0.00 mmph"
-                                    android:id="@+id/wind_speed_value"
                                     android:textAlignment="center"
                                     android:textColor="@android:color/white"
                                     android:textStyle="bold" />
@@ -251,12 +253,13 @@
 
                         </android.support.v7.widget.CardView>
 
-                        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                        <android.support.v7.widget.CardView
                             android:id="@+id/week_card_view"
                             android:layout_width="92dp"
                             android:layout_height="100dp"
-                            app:cardBackgroundColor="#161515"
-                            android:layout_weight="1">
+                            android:layout_weight="1"
+                            android:background="@color/ggrey"
+                            app:cardBackgroundColor="@color/ggrey">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -264,19 +267,19 @@
                                 android:orientation="vertical">
 
                                 <ImageView
+                                    android:id="@+id/visibility_image"
                                     android:layout_width="match_parent"
                                     android:layout_height="50dp"
-                                    android:src="@drawable/eye_outline"
-                                    android:id="@+id/visibility_image"/>
+                                    android:src="@drawable/eye_outline" />
 
                                 <TextView
+                                    android:id="@+id/visibility_value"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="0.00 mmph"
-                                    android:id="@+id/visibility_value"
                                     android:textAlignment="center"
-                                    android:textStyle="bold"
-                                    android:textColor="@android:color/white"/>
+                                    android:textColor="@android:color/white"
+                                    android:textStyle="bold" />
 
                                 <TextView
                                     android:layout_width="match_parent"
@@ -287,12 +290,13 @@
 
                         </android.support.v7.widget.CardView>
 
-                        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                        <android.support.v7.widget.CardView
                             android:id="@+id/week_card_view"
                             android:layout_width="92dp"
                             android:layout_height="100dp"
-                            app:cardBackgroundColor="#161515"
-                            android:layout_weight="1">
+                            android:layout_weight="1"
+                            android:background="@color/ggrey"
+                            app:cardBackgroundColor="@color/ggrey">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -300,19 +304,19 @@
                                 android:orientation="vertical">
 
                                 <ImageView
+                                    android:id="@+id/pressure_image"
                                     android:layout_width="match_parent"
                                     android:layout_height="50dp"
-                                    android:src="@drawable/gauge"
-                                    android:id="@+id/pressure_image"/>
+                                    android:src="@drawable/gauge" />
 
                                 <TextView
+                                    android:id="@+id/pressure_value"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="0.00 mmph"
-                                    android:id="@+id/pressure_value"
                                     android:textAlignment="center"
-                                    android:textStyle="bold"
-                                    android:textColor="@android:color/white"/>
+                                    android:textColor="@android:color/white"
+                                    android:textStyle="bold" />
 
                                 <TextView
                                     android:layout_width="match_parent"
@@ -330,14 +334,14 @@
                         android:layout_height="match_parent" />
                 </android.support.v7.widget.CardView>
 
-                <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                <android.support.v7.widget.CardView
                     android:id="@+id/card3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="20dp"
-                    app:cardBackgroundColor="#161515"
-                    card_view:cardCornerRadius="10dp">
+                    app:cardBackgroundColor="@color/ggrey"
+                    app:cardCornerRadius="10dp">
 
                     <ScrollView
                         android:id="@+id/widget54"
@@ -366,6 +370,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
+        android:background="@color/white"
         android:src="@drawable/map_marker_plus" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -8,5 +8,7 @@
 
     <color name="white">#FFF</color>
     <color name="bb">#161515</color>
+    <color name="ggrey">#272727</color>
+    <color name="bg">#495AB9</color>
 
 </resources>

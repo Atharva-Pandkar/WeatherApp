@@ -21,12 +21,27 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.highsoft.highcharts.common.HIColor;
+import com.highsoft.highcharts.common.hichartsclasses.*;
+import com.highsoft.highcharts.common.hichartsclasses.HIArearange;
+import com.highsoft.highcharts.common.hichartsclasses.HIChart;
+import com.highsoft.highcharts.common.hichartsclasses.HILegend;
+import com.highsoft.highcharts.common.hichartsclasses.HILine;
+import com.highsoft.highcharts.common.hichartsclasses.HIMarker;
+import com.highsoft.highcharts.common.hichartsclasses.HIOptions;
+import com.highsoft.highcharts.common.hichartsclasses.HITitle;
+import com.highsoft.highcharts.common.hichartsclasses.HITooltip;
+import com.highsoft.highcharts.common.hichartsclasses.HIXAxis;
+import com.highsoft.highcharts.common.hichartsclasses.HIYAxis;
+import com.highsoft.highcharts.core.HIChartView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class WeeklyFragment extends Fragment {
 
@@ -105,65 +120,115 @@ public class WeeklyFragment extends Fragment {
             String icon, summary;
 
             try {
-                JSONObject obj = weatherInfo.getJSONObject("daily");
-                icon= obj.getString("icon");
-                summary= obj.getString("summary");
 
-                ImageView iconImage= rootView.findViewById(R.id.icon);
-                int iconResource = getIconDrawable(icon);
-                iconImage.setImageResource(iconResource);
+                HIChartView chartView = rootView.findViewById(R.id.hc);
 
-                TextView summ= rootView.findViewById(R.id.summary);
-                summ.setText(summary);
+                HIOptions options = new HIOptions();
 
-                JSONArray data= obj.getJSONArray("data");
-                ArrayList<Entry> tempLow= new ArrayList<>();
-                ArrayList<Entry> tempHigh= new ArrayList<>();
+                HIChart chart = new HIChart();
+                chart.setType("arearange");
+                options.setChart(chart);
 
+                HITitle title = new HITitle();
+                title.setText("Temperature variation by day ");
+                options.setTitle(title);
+
+                HIXAxis xaxis = new HIXAxis();
+                xaxis.setType("datetime");
+                options.setXAxis(new ArrayList<>(Collections.singletonList(xaxis)));
+
+                HIYAxis yaxis = new HIYAxis();
+                yaxis.setTitle(new HITitle());
+                yaxis.getTitle().setText("");
+                options.setYAxis(new ArrayList<>(Collections.singletonList(yaxis)));
+
+                HITooltip tooltip = new HITooltip();
+                tooltip.setShared(true);
+                tooltip.setValueSuffix("°F");
+                options.setTooltip(tooltip);
+
+                HILegend legend = new HILegend();
+                options.setLegend(legend);
+
+                HILine line = new HILine();
+                line.setName("Temperature");
+                line.setZIndex(1);
+                line.setMarker(new HIMarker());
+                line.getMarker().setFillColor(HIColor.initWithName("white"));
+                line.getMarker().setLineWidth(2);
+                line.getMarker().setLineColor(String.valueOf(HIColor.initWithHexValue("7cb5ec")));
+                Number[][] lineData = new Number[][]{
+                        {1246406400000L, 21.5},
+                        {1246492800000L, 22.1},
+                        {1246579200000L, 23},
+                        {1246665600000L, 23.8},
+                        {1246752000000L, 21.4},
+                        {1246838400000L, 21.3},
+                        {1246924800000L, 18.3},
+                        {1247011200000L, 15.4},
+                        {1247097600000L, 16.4},
+                        {1247184000000L, 17.7},
+                        {1247270400000L, 17.5},
+                        {1247356800000L, 17.6},
+                        {1247443200000L, 17.7},
+                        {1247529600000L, 16.8}
+                };
+                //line.setData(new ArrayList<>(Arrays.asList(lineData)));
+
+                HIArearange arearange = new HIArearange();
+                arearange.setType("arearange");
+                arearange.setName("Temperature");
+                arearange.setLineWidth(0);
+                arearange.setLinkedTo(":previous");
+                arearange.setColor(HIColor.initWithHexValue("7cb5ec"));
+                arearange.setFillOpacity(0.3);
+                arearange.setZIndex(0);
+                Number[][] arearangeData = new Number[][]{
+                        {20211118, 14.3, 27.7},
+                        {20211119, 14.5, 27.8},
+                        {20211120, 15.5, 29.6},
+                        {20211121, 16.7, 30.7},
+                        {20211122, 16.5, 25.0},
+                        {20211123, 17.8, 25.7},
+                        {20211124, 13.5, 24.8},
+                        {20211125, 10.5, 21.4},
+                        {20211126, 9.2, 23.8},
+                        {20211127, 11.6, 21.8},
+                        {20211128, 10.7, 23.7},
+                        {20211129, 11.0, 23.3},
+                        {20211130, 11.6, 23.7},
+                        {20211131, 11.8, 20.7}
+                };
+                arearange.setData(new ArrayList<>(Arrays.asList(arearangeData)));
+
+                options.setSeries(new ArrayList<>(Arrays.asList(arearange,  line)));
+
+                chartView.setOptions(options);
+
+                JSONArray data= weatherInfo.getJSONArray("obj");
                 int n= data.length();
-                for(int i=0;i<n;i++)
-                {
-                    JSONObject d= data.getJSONObject(i);
-                    double th= d.getDouble("temperatureHigh");
-                    double tl= d.getDouble("temperatureLow");
+                ArrayList<Entry> tempLow = new ArrayList<>();
+                ArrayList<Entry> tempHigh = new ArrayList<>();
 
-                    tempHigh.add(new Entry(i, (int)th));
+
+                for(int i=0;i<n && i<8;i++) {
+
+                    JSONObject d = (JSONObject) data.get(i);
+                    Log.d(TAG, d.toString());
+                    Log.d("ME", d.toString());
+                    JSONObject a = d.getJSONObject("values");
+                    //long timestamp= d.getInt("startTime");
+                    //String date= getDate(d.get("StartTime").toString());
+                    double th = a.getDouble("temperatureMax");
+                    double tl = a.getDouble("temperatureMin");
+
+
+                    tempHigh.add(new Entry(i, (int) th));
                     tempLow.add(new Entry(i, (int) tl));
                 }
 
-                LineChart mChart = rootView.findViewById(R.id.chart);
+               // arearange.setData(new ArrayList <>(tempHigh,tempLow));
 
-                mChart.getAxisLeft().setDrawGridLines(false);  // y-axis
-                mChart.getAxisRight().setDrawGridLines(false);  // y-axis
-                mChart.getXAxis().setDrawGridLines(false);
-
-                mChart.getAxisLeft().setTextColor(Color.WHITE); // y-axis
-                mChart.getXAxis().setTextColor(Color.WHITE);
-                mChart.getAxisRight().setTextColor(Color.WHITE);
-
-                int color= Color.rgb(172, 55, 219);
-                LineDataSet lineDataSet1= new LineDataSet(tempLow, "Minimum Temperature");
-                lineDataSet1.setDrawValues(false);
-                lineDataSet1.setCircleSize(4f);
-                lineDataSet1.setColor(color);
-
-                LineDataSet lineDataSet2= new LineDataSet(tempHigh, "Maximum Temperature");
-                lineDataSet2.setDrawValues(false);
-                lineDataSet2.setCircleSize(4f);
-                lineDataSet2.setColor(getResources().getColor(android.R.color.holo_orange_dark));
-
-                ArrayList<ILineDataSet> dataSets= new ArrayList<>();
-                dataSets.add(lineDataSet1);
-                dataSets.add(lineDataSet2);
-
-                LineData lineData= new LineData(dataSets);
-                mChart.setData(lineData);
-                mChart.invalidate();
-
-                Legend legend= mChart.getLegend();
-                legend.setTextColor(Color.WHITE);
-                legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
-                legend.setTextSize(16);
 
             } catch (JSONException e) {
                 e.printStackTrace();

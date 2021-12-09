@@ -48,7 +48,7 @@ public class MainActivityFragment extends Fragment {
     private JSONObject weatherInfo;
     private String place="";
     private String TAG="MainActivityFragment";
-
+    String ats ="Clear day ";
     String MyPREFERENCES = "WeatherApp2";
     String favKey = "fPlaces";
     SharedPreferences sharedPreferences;
@@ -146,7 +146,82 @@ public class MainActivityFragment extends Fragment {
 
         return rootView;
     }
+  public int   get_weather(int d) {
 
+      int icon= R.drawable.weather_sunny;
+        if (d == 1000) {
+            icon = R.drawable.clear_day;
+            ats= "Clear Day";
+        } else if (d == 1100) {
+            icon = R.drawable.mostly_clear_day; //night
+            ats= "Mostly Clear Day";
+        } else if (d == 1101) {
+            icon = R.drawable.partly_cloudy_day;
+            ats= "Partly Cloudy Day";
+        } else if (d == 1102) {
+            icon = R.drawable.mostly_cloudy;
+            ats= "Mostly Cloudy";
+        } else if (d == 1001) {
+            icon = R.drawable.cloudy;
+            ats= "Cloudy";
+        } else if (d == 2000) {
+            icon = R.drawable.fog;
+            ats= "Fog";
+        } else if (d == 2100) {
+            icon = R.drawable.fog_light;
+            ats= "Fog Light";
+        } else if (d == 8000) {
+            icon = R.drawable.tstorm;
+            ats= "Thunderstorm";
+        } else if (d == 5001) {
+            icon = R.drawable.flurries;
+            ats= "Flurries";
+        } else if (d == 5100) {
+            icon = R.drawable.snow_light;
+            ats= "Snow Light";
+        } else if (d == 5000) {
+            icon = R.drawable.snow;
+            ats= "Snow";
+        } else if (d == 5101) {
+            icon = R.drawable.snow_heavy;
+            ats= "Snow Heavy";
+        } else if (d == 7102) {
+            icon = R.drawable.ice_pellets_light;
+            ats= "Ice Pellets Light";
+        } else if (d == 7000) {
+            icon = R.drawable.ice_pellets;
+            ats= "Ice Pellets";
+        } else if (d == 7101) {
+            icon = R.drawable.ice_pellets_heavy;
+            ats= "Ice Pellets Heavy";
+        } else if (d == 4000) {
+            icon = R.drawable.drizzle;
+            ats= "Drizzle";
+        } else if (d == 6000) {
+            icon = R.drawable.freezing_drizzle;
+            ats= "Freezing Drizzle";
+        } else if (d == 6200) {
+            icon = R.drawable.freezing_rain_light;
+            ats= "Freezing Rain Light";
+        } else if (d == 6001) {
+            icon = R.drawable.freezing_rain;
+            ats= "Freezing Rain";
+        } else if (d == 6201) {
+            icon = R.drawable.freezing_rain_heavy;
+            ats= "Freezing Rain Heavy";
+        } else if (d == 4200) {
+            icon = R.drawable.freezing_rain;
+            ats= "Freezing Rain";
+        } else if (d == 4001) {
+            icon = R.drawable.rain;
+            ats= "Rain";
+        } else if (d == 4201) {
+            icon = R.drawable.rain_heavy;
+            ats= "Rain Heavy";
+        }
+            return icon;
+
+    }
     private int getIconDrawable(String summary)
     {
         int icon= R.drawable.weather_sunny;
@@ -227,15 +302,12 @@ public class MainActivityFragment extends Fragment {
 
                 icon ="cloudy";
                 summary= obj.getString("weatherCode");
-                if(summary.equals("1000")) {
-                    icon = "rain";
-                }
+
                 temperature= obj.getDouble("temperature");
                 int temp= (int) temperature;
 
 
                 humidity= obj.getDouble("humidity");
-                humidity= humidity*100;
                 humidity= roundOff(humidity);
 
                 pressure= obj.getDouble("pressureSeaLevel");
@@ -249,22 +321,23 @@ public class MainActivityFragment extends Fragment {
 
                 //card1
                 ImageView iconImage= rootView.findViewById(R.id.icon);
-                int iconResource = getIconDrawable(icon);
+                int iconResource = get_weather(Integer.valueOf(summary));
+                iconImage.setImageResource(iconResource);
                 //iconImage.setImageResource(iconResource);
 
-                if (icon.equals("clear-day")) {
-                    //color icon yellow
-                    colorImage(iconImage, iconResource, Color.rgb(255, 167, 39));
-                } else {
-                    //color image white;
-                    colorImage(iconImage, iconResource, Color.WHITE);
-                }
+//                if (icon.equals("clear-day")) {
+//                    //color icon yellow
+//                    colorImage(iconImage, iconResource, Color.rgb(255, 167, 39));
+//                } else {
+//                    //color image white;
+//                    colorImage(iconImage, iconResource, Color.WHITE);
+//                }
 
                 TextView tempTextView= rootView.findViewById(R.id.temperature);
                 tempTextView.setText(temp + "°F");
 
                 TextView summ= rootView.findViewById(R.id.summary);
-                summ.setText(summary);
+                summ.setText(ats);
 
                 //card 2
                 TextView t= rootView.findViewById(R.id.rain_value);
@@ -284,7 +357,7 @@ public class MainActivityFragment extends Fragment {
                 ImageView i3= rootView.findViewById(R.id.wind_image);
                 ImageView i4= rootView.findViewById(R.id.visibility_image);
 
-                int color= Color.rgb(172, 55, 219);
+                int color= Color.rgb(0, 0, 0);
                 colorImage(i1, R.drawable.water_percent, color);
                 colorImage(i2, R.drawable.gauge, color);
                 colorImage(i3, R.drawable.weather_windy, color);
@@ -292,18 +365,18 @@ public class MainActivityFragment extends Fragment {
 
                 LinearLayout scrollViewLL= rootView.findViewById(R.id.scroll_view_linear_layout);
 
-                JSONArray data= weatherInfo.getJSONArray("obj");
+
 
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.WRAP_CONTENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT,
                         1.0f
                 );
-
+                JSONArray data= weatherInfo.getJSONArray("obj");
                 int n= data.length();
 
 
-                for(int i=0;i<n && i<8;i++)
+                for(int i=0;i<n ;i++)
                 {
 
                     JSONObject d = (JSONObject) data.get(i);
@@ -314,7 +387,7 @@ public class MainActivityFragment extends Fragment {
                     //String date= getDate(d.get("StartTime").toString());
                     double th= a.getDouble("temperatureMax");
                     double tl= a.getDouble("temperatureMin");
-                    String table_icon= "cloudy";//d.getString("icon");
+                    String table_icon= a.getString("weatherCode");//d.getString("icon");
 
                     String s1= d.get("startTime").toString();
                     String s2= String.valueOf((int)tl);
@@ -333,14 +406,8 @@ public class MainActivityFragment extends Fragment {
                     tv3.setText(s3);
 
                     ImageView iv= linearLayout1.findViewById(R.id.table_icon);
-                    int tableiconresource= getIconDrawable(table_icon);
-                    if (table_icon.equals("clear-day")) {
-                        //color icon yellow
-                        colorImage(iv, tableiconresource, Color.rgb(255, 167, 39));
-                    } else {
-                        //color image white;
-                        colorImage(iv, tableiconresource, Color.WHITE);
-                    }
+                    int tableiconresource= get_weather(Integer.valueOf(table_icon));
+                    iv.setImageResource(tableiconresource);
                     scrollViewLL.addView(linearLayout1);
                 }
 

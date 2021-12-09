@@ -228,7 +228,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void getCurrentLocation() {
 
-
+        int a =10;
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, ip_url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -286,7 +286,7 @@ public class MainActivity extends AppCompatActivity {
                         fragmentList.add(fragment);
                         mAdapter.notifyDataSetChanged();
 
-                        if (favPlacesList.size()==2 ) {
+                        if (favPlacesList.size()==0 ) {
                             Log.d(TAG, "no favs");
                             mProgressView.setVisibility(View.GONE);
                             mTabLayout.setVisibility(View.VISIBLE);

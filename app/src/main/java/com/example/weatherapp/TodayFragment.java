@@ -102,8 +102,83 @@ public class TodayFragment extends Fragment {
         double value= Math.round(x* 100.0) /100.0;
         return value;
     }
+    public int get_weather(int d) {
 
+        int icon= R.drawable.weather_sunny;
+        if (d == 1000) {
+            icon = R.drawable.clear_day;
+            ats= "Clear Day";
+        } else if (d == 1100) {
+            icon = R.drawable.mostly_clear_day; //night
+            ats= "Mostly Clear Day";
+        } else if (d == 1101) {
+            icon = R.drawable.partly_cloudy_day;
+            ats= "Partly Cloudy Day";
+        } else if (d == 1102) {
+            icon = R.drawable.mostly_cloudy;
+            ats= "Mostly Cloudy";
+        } else if (d == 1001) {
+            icon = R.drawable.cloudy;
+            ats= "Cloudy";
+        } else if (d == 2000) {
+            icon = R.drawable.fog;
+            ats= "Fog";
+        } else if (d == 2100) {
+            icon = R.drawable.fog_light;
+            ats= "Fog Light";
+        } else if (d == 8000) {
+            icon = R.drawable.tstorm;
+            ats= "Thunderstorm";
+        } else if (d == 5001) {
+            icon = R.drawable.flurries;
+            ats= "Flurries";
+        } else if (d == 5100) {
+            icon = R.drawable.snow_light;
+            ats= "Snow Light";
+        } else if (d == 5000) {
+            icon = R.drawable.snow;
+            ats= "Snow";
+        } else if (d == 5101) {
+            icon = R.drawable.snow_heavy;
+            ats= "Snow Heavy";
+        } else if (d == 7102) {
+            icon = R.drawable.ice_pellets_light;
+            ats= "Ice Pellets Light";
+        } else if (d == 7000) {
+            icon = R.drawable.ice_pellets;
+            ats= "Ice Pellets";
+        } else if (d == 7101) {
+            icon = R.drawable.ice_pellets_heavy;
+            ats= "Ice Pellets Heavy";
+        } else if (d == 4000) {
+            icon = R.drawable.drizzle;
+            ats= "Drizzle";
+        } else if (d == 6000) {
+            icon = R.drawable.freezing_drizzle;
+            ats= "Freezing Drizzle";
+        } else if (d == 6200) {
+            icon = R.drawable.freezing_rain_light;
+            ats= "Freezing Rain Light";
+        } else if (d == 6001) {
+            icon = R.drawable.freezing_rain;
+            ats= "Freezing Rain";
+        } else if (d == 6201) {
+            icon = R.drawable.freezing_rain_heavy;
+            ats= "Freezing Rain Heavy";
+        } else if (d == 4200) {
+            icon = R.drawable.freezing_rain;
+            ats= "Freezing Rain";
+        } else if (d == 4001) {
+            icon = R.drawable.rain;
+            ats= "Rain";
+        } else if (d == 4201) {
+            icon = R.drawable.rain_heavy;
+            ats= "Rain Heavy";
+        }
+        return icon;
 
+    }
+    String ats = "Clear Day";
     private void fillInfo(View rootView){
 
         //create 8 layouts and add to the scroll view for min and max temp and so on
@@ -129,9 +204,7 @@ public class TodayFragment extends Fragment {
                 int temp= (int) temperature;
                 ats ="cloudy";
                 summary= obj.getString("weatherCode");
-                if(summary.equals("1000")) {
-                     ats = "rain";
-                }
+
                 precipitation = obj.getDouble("precipitationProbability");
                 //precipitation= roundOff(precipitation);
 
@@ -159,19 +232,13 @@ public class TodayFragment extends Fragment {
                 ImageView iconImage= rootView.findViewById(R.id.icon);
                 int iconResource = getIconDrawable(ats);
                 //iconImage.setImageResource(iconResource);
-                if (icon.equals("clear-day")) {
-                    //color icon yellow
-                    colorImage(iconImage, iconResource, Color.rgb(255, 167, 39));
-                } else {
-                    //color image white;
-                    colorImage(iconImage, iconResource, Color.WHITE);
-                }
+                iconImage.setImageResource(get_weather(Integer.valueOf(summary)));
 
                 TextView tempTextView= rootView.findViewById(R.id.temperature_value);
                 tempTextView.setText(String.valueOf(temp) + "°F");
 
                 TextView summ= rootView.findViewById(R.id.summary);
-                summ.setText(summary);
+                summ.setText(ats);
 
                 TextView t= rootView.findViewById(R.id.precipitation_value);
                 t.setText(Double.toString(precipitation) + " mmph");
@@ -203,7 +270,7 @@ public class TodayFragment extends Fragment {
                 ImageView i7= rootView.findViewById(R.id.cloudcover_image);
                 ImageView i8= rootView.findViewById(R.id.ozone_image);
 
-                int color= Color.rgb(172, 55, 219);
+                int color= Color.rgb(0, 0, 0);
                 colorImage(i1, R.drawable.weather_windy, color);
                 colorImage(i2, R.drawable.gauge, color);
                 colorImage(i3, R.drawable.weather_pouring, color);
